@@ -1,3 +1,5 @@
+use crate::rust_tracer::math::mat4::Mat4;
+
 pub struct Point {
     pub x: f32,
     pub y: f32,
@@ -6,7 +8,7 @@ pub struct Point {
 }
 
 impl Point {
-    pub fn new() -> Point {
-        Point{x : 0.0, y: 0.0, z: 0.0, w: 1.0 }
+    pub fn new(x : f32, y : f32, z : f32) -> Point {
+        Point{x, y, z, w: 1.0}
     }
 }
