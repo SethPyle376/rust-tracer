@@ -140,3 +140,19 @@ fn vector_dot_product_test() {
 
     assert_eq!(dot_product, 20.0);
 }
+
+#[test]
+fn vector_cross_product_test() {
+    let vector1 = Vec4::new(1.0, 2.0, 3.0);
+    let vector2 = Vec4::new(2.0, 3.0, 4.0);
+    let vector3 = vector1.cross(&vector2);
+    let vector4 = vector2.cross(&vector1);
+
+    assert_eq!(vector3.x, -1.0);
+    assert_eq!(vector3.y, 2.0);
+    assert_eq!(vector3.z, -1.0);
+
+    assert_eq!(vector4.x, 1.0);
+    assert_eq!(vector4.y, -2.0);
+    assert_eq!(vector4.z, 1.0)
+}

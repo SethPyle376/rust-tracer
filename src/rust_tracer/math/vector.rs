@@ -39,6 +39,11 @@ impl Vec4 {
     pub fn dot(&self, other: &Vec4) -> f32 {
         return self.x * other.x + self.y * other.y + self.z * other.z;
     }
+
+    pub fn cross(&self, other: &Vec4) -> Vec4 {
+        Vec4 {x: self.y * other.z - self.z * other.y, y: self.z * other.x - self.x * other.z,
+                z: self.x * other.y - self.y * other.x, w: 0.0}
+    }
 }
 
 impl Add<Vec4> for Vec4 {
