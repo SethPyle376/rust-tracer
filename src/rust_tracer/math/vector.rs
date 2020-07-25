@@ -1,5 +1,5 @@
 use std::num;
-use std::ops::Add;
+use std::ops::{Add,Sub};
 
 use crate::rust_tracer::math::EPSILON;
 use crate::rust_tracer::math::point::Point;
@@ -36,5 +36,21 @@ impl Add<Point> for Vec4 {
 
     fn add(self, other: Point) -> Vec4 {
         Vec4 {x: self.x + other.x, y: self.y + other.y, z: self.z + other.z, w: 0.0}
+    }
+}
+
+impl Sub<Vec4> for Vec4 {
+    type Output = Vec4;
+
+    fn sub(self, other: Vec4) -> Vec4 {
+        Vec4 {x: self.x - other.x, y: self.y - other.y, z: self.z - other.z, w: 0.0}
+    }
+}
+
+impl Sub<Point> for Vec4 {
+    type Output = Vec4;
+
+    fn sub(self, other: Point) -> Vec4 {
+        Vec4 {x: self.x - other.x, y: self.y - other.y, z: self.z - other.z, w: 0.0}
     }
 }

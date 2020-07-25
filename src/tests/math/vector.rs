@@ -53,3 +53,26 @@ fn vector_add_point_test() {
     assert_eq!(vector2.y, 4.0);
     assert_eq!(vector2.z, 6.0);
 }
+
+#[test]
+fn vector_sub_test() {
+    let vector1 = Vec4::new(3.0, 2.0, 5.0);
+    let vector2 = Vec4::new(1.0, 2.0, 3.0);
+
+    let vector3 = vector1 - vector2;
+
+    assert_eq!(vector3.x, 2.0);
+    assert_eq!(vector3.y, 0.0);
+    assert_eq!(vector3.z, 2.0);
+}
+
+#[test]
+fn vector_sub_point_test() {
+    let vector1 = Vec4::new(1.0, 2.0, 8.0);
+    let point1 = Point::new(4.0, 2.0, 3.0);
+    let vector2 = vector1 - point1;
+
+    assert_eq!(vector2.x, -3.0);
+    assert_eq!(vector2.y, 0.0);
+    assert_eq!(vector2.z, 5.0);
+}
