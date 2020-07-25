@@ -76,3 +76,67 @@ fn vector_sub_point_test() {
     assert_eq!(vector2.y, 0.0);
     assert_eq!(vector2.z, 5.0);
 }
+
+#[test]
+fn vector_negate_test() {
+    let vector1 = Vec4::new(0.0, 1.0, -1.0);
+    let vector2 = -vector1;
+
+    assert_eq!(vector2.x, 0.0);
+    assert_eq!(vector2.y, -1.0);
+    assert_eq!(vector2.z, 1.0);
+}
+
+#[test]
+fn vector_scalar_mul_test() {
+    let vector1 = Vec4::new(0.0, 2.0, -3.0);
+    let vector2 = vector1 * 2.5;
+
+    assert_eq!(vector2.x, 0.0);
+    assert_eq!(vector2.y, 5.0);
+    assert_eq!(vector2.z, -7.5);
+}
+
+#[test]
+fn vector_scalar_div_test() {
+    let vector1 = Vec4::new(0.0, 2.0, -3.0);
+    let vector2 = vector1 / 2.0;
+
+    assert_eq!(vector2.x, 0.0);
+    assert_eq!(vector2.y, 1.0);
+    assert_eq!(vector2.z, -1.5);
+}
+
+#[test]
+fn vector_magnitude_test() {
+    let vector1 = Vec4::new(1.0, 0.0, 0.0);
+    let vector2 = Vec4::new(0.0, 1.0, 0.0);
+    let vector3 = Vec4::new(0.0, 0.0, 1.0);
+    let vector4 = Vec4::new(1.0, 2.0, 3.0);
+    let vector5 = Vec4::new(-1.0, -2.0, -3.0);
+
+    assert_eq!(vector1.magnitude(), 1.0);
+    assert_eq!(vector2.magnitude(), 1.0);
+    assert_eq!(vector3.magnitude(), 1.0);
+    assert_eq!(vector4.magnitude(), 14.0_f32.sqrt());
+    assert_eq!(vector5.magnitude(), 14.0_f32.sqrt());
+}
+
+#[test]
+fn vector_normalize_test() {
+    let mut vector1 = Vec4::new(1.0, 2.0, 3.0);
+    vector1.normalize();
+
+    assert_eq!(vector1.x, 1.0 / 14.0_f32.sqrt());
+    assert_eq!(vector1.y, 2.0 / 14.0_f32.sqrt());
+    assert_eq!(vector1.z, 3.0 / 14.0_f32.sqrt());
+}
+
+#[test]
+fn vector_dot_product_test() {
+    let vector1 = Vec4::new(1.0, 2.0, 3.0);
+    let vector2 = Vec4::new(2.0, 3.0, 4.0);
+    let dot_product = vector1.dot(&vector2);
+
+    assert_eq!(dot_product, 20.0);
+}

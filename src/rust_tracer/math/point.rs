@@ -52,3 +52,20 @@ impl Sub<Vec4> for Point {
         Point {x: self.x - other.x, y: self.y - other.y, z: self.z - other.z, w: 1.0}
     }
 }
+
+impl Mul<f32> for Point {
+    type Output = Point;
+
+    fn mul(self, other: f32) -> Point {
+        Point {x: self.x * other, y: self.y * other, z: self.z * other, w: 1.0}
+    }
+}
+
+impl Div<f32> for Point {
+    type Output = Point;
+
+    fn div(self, other: f32) -> Point {
+        let reciprocal = 1.0 / other;
+        Point {x: self.x * reciprocal, y: self.y * reciprocal, z: self.z * reciprocal, w: 1.0}
+    }
+}

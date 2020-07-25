@@ -75,3 +75,23 @@ fn point_sub_vec_test() {
     assert_eq!(point2.y, -1.0);
     assert_eq!(point2.z, 2.0);
 }
+
+#[test]
+fn point_scalar_mul_test() {
+    let point1 = Point::new(0.0, 2.0, -3.0);
+    let point2 = point1 * 2.5;
+
+    assert_eq!(point2.x, 0.0);
+    assert_eq!(point2.y, 5.0);
+    assert_eq!(point2.z, -7.5);
+}
+
+#[test]
+fn point_scalar_div_test() {
+    let point1 = Point::new(0.0, 2.0, -3.0);
+    let point2 = point1 / 2.0;
+
+    assert_eq!(point2.x, 0.0);
+    assert_eq!(point2.y, 1.0);
+    assert_eq!(point2.z, -1.5);
+}
