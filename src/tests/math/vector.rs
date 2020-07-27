@@ -3,7 +3,7 @@ use crate::rust_tracer::math::point::Point;
 
 #[test]
 fn new_vector_test() {
-    let vector = Vec4::new(1.2, 3.2, 4.2);
+    let vector = Vec4::new(1.2, 3.2, 4.2, 0.0);
     assert_eq!(vector.x, 1.2);
     assert_eq!(vector.y, 3.2);
     assert_eq!(vector.z, 4.2);
@@ -12,29 +12,29 @@ fn new_vector_test() {
 
 #[test]
 fn vector_equal_test() {
-    let vector1 = Vec4::new(1.2, 3.2, 4.2);
-    let vector2 = Vec4::new(1.2, 3.2, 4.2);
+    let vector1 = Vec4::new(1.2, 3.2, 4.2, 0.0);
+    let vector2 = Vec4::new(1.2, 3.2, 4.2, 0.0);
     assert!(vector1.equal(&vector2));
 }
 
 #[test]
 fn vector_near_equal_test() {
-    let vector1 = Vec4::new(1.200001, 3.200001, 4.200001);
-    let vector2 = Vec4::new(1.2, 3.2, 4.2);
+    let vector1 = Vec4::new(1.200001, 3.200001, 4.200001, 0.0);
+    let vector2 = Vec4::new(1.2, 3.2, 4.2, 0.0);
     assert!(vector1.equal(&vector2));
 }
 
 #[test]
 fn vector_not_equal_test() {
-    let vector1 = Vec4::new(1.3, 3.2, 4.2);
-    let vector2 = Vec4::new(1.2, 3.2, 4.2);
+    let vector1 = Vec4::new(1.3, 3.2, 4.2, 0.0);
+    let vector2 = Vec4::new(1.2, 3.2, 4.2, 0.0);
     assert!(!vector1.equal(&vector2));
 }
 
 #[test]
 fn vector_add_test() {
-    let point1 = Vec4::new(1.0, 2.0, 3.0);
-    let point2 = Vec4::new(1.0, 2.0, 3.0);
+    let point1 = Vec4::new(1.0, 2.0, 3.0, 0.0);
+    let point2 = Vec4::new(1.0, 2.0, 3.0, 0.0);
 
     let point3 = point1 + point2;
 
@@ -46,7 +46,7 @@ fn vector_add_test() {
 #[test]
 fn vector_add_point_test() {
     let point1 = Point::new(1.0, 2.0, 3.0);
-    let vector1 = Vec4::new(1.0, 2.0, 3.0);
+    let vector1 = Vec4::new(1.0, 2.0, 3.0, 0.0);
     let vector2 = vector1 + point1;
 
     assert_eq!(vector2.x, 2.0);
@@ -56,8 +56,8 @@ fn vector_add_point_test() {
 
 #[test]
 fn vector_sub_test() {
-    let vector1 = Vec4::new(3.0, 2.0, 5.0);
-    let vector2 = Vec4::new(1.0, 2.0, 3.0);
+    let vector1 = Vec4::new(3.0, 2.0, 5.0, 0.0);
+    let vector2 = Vec4::new(1.0, 2.0, 3.0, 0.0);
 
     let vector3 = vector1 - vector2;
 
@@ -68,7 +68,7 @@ fn vector_sub_test() {
 
 #[test]
 fn vector_sub_point_test() {
-    let vector1 = Vec4::new(1.0, 2.0, 8.0);
+    let vector1 = Vec4::new(1.0, 2.0, 8.0, 0.0);
     let point1 = Point::new(4.0, 2.0, 3.0);
     let vector2 = vector1 - point1;
 
@@ -79,7 +79,7 @@ fn vector_sub_point_test() {
 
 #[test]
 fn vector_negate_test() {
-    let vector1 = Vec4::new(0.0, 1.0, -1.0);
+    let vector1 = Vec4::new(0.0, 1.0, -1.0, 0.0);
     let vector2 = -vector1;
 
     assert_eq!(vector2.x, 0.0);
@@ -89,7 +89,7 @@ fn vector_negate_test() {
 
 #[test]
 fn vector_scalar_mul_test() {
-    let vector1 = Vec4::new(0.0, 2.0, -3.0);
+    let vector1 = Vec4::new(0.0, 2.0, -3.0, 0.0);
     let vector2 = vector1 * 2.5;
 
     assert_eq!(vector2.x, 0.0);
@@ -99,7 +99,7 @@ fn vector_scalar_mul_test() {
 
 #[test]
 fn vector_scalar_div_test() {
-    let vector1 = Vec4::new(0.0, 2.0, -3.0);
+    let vector1 = Vec4::new(0.0, 2.0, -3.0, 0.0);
     let vector2 = vector1 / 2.0;
 
     assert_eq!(vector2.x, 0.0);
@@ -109,11 +109,11 @@ fn vector_scalar_div_test() {
 
 #[test]
 fn vector_magnitude_test() {
-    let vector1 = Vec4::new(1.0, 0.0, 0.0);
-    let vector2 = Vec4::new(0.0, 1.0, 0.0);
-    let vector3 = Vec4::new(0.0, 0.0, 1.0);
-    let vector4 = Vec4::new(1.0, 2.0, 3.0);
-    let vector5 = Vec4::new(-1.0, -2.0, -3.0);
+    let vector1 = Vec4::new(1.0, 0.0, 0.0, 0.0);
+    let vector2 = Vec4::new(0.0, 1.0, 0.0, 0.0);
+    let vector3 = Vec4::new(0.0, 0.0, 1.0, 0.0);
+    let vector4 = Vec4::new(1.0, 2.0, 3.0, 0.0);
+    let vector5 = Vec4::new(-1.0, -2.0, -3.0, 0.0);
 
     assert_eq!(vector1.magnitude(), 1.0);
     assert_eq!(vector2.magnitude(), 1.0);
@@ -124,7 +124,7 @@ fn vector_magnitude_test() {
 
 #[test]
 fn vector_normalize_test() {
-    let mut vector1 = Vec4::new(1.0, 2.0, 3.0);
+    let mut vector1 = Vec4::new(1.0, 2.0, 3.0, 0.0);
     vector1.normalize();
 
     assert_eq!(vector1.x, 1.0 / 14.0_f32.sqrt());
@@ -134,8 +134,8 @@ fn vector_normalize_test() {
 
 #[test]
 fn vector_dot_product_test() {
-    let vector1 = Vec4::new(1.0, 2.0, 3.0);
-    let vector2 = Vec4::new(2.0, 3.0, 4.0);
+    let vector1 = Vec4::new(1.0, 2.0, 3.0, 0.0);
+    let vector2 = Vec4::new(2.0, 3.0, 4.0, 0.0);
     let dot_product = vector1.dot(&vector2);
 
     assert_eq!(dot_product, 20.0);
@@ -143,8 +143,8 @@ fn vector_dot_product_test() {
 
 #[test]
 fn vector_cross_product_test() {
-    let vector1 = Vec4::new(1.0, 2.0, 3.0);
-    let vector2 = Vec4::new(2.0, 3.0, 4.0);
+    let vector1 = Vec4::new(1.0, 2.0, 3.0, 0.0);
+    let vector2 = Vec4::new(2.0, 3.0, 4.0, 0.0);
     let vector3 = vector1.cross(&vector2);
     let vector4 = vector2.cross(&vector1);
 

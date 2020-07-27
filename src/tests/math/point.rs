@@ -46,7 +46,7 @@ fn point_add_test() {
 #[test]
 fn point_add_vec_test() {
     let point1 = Point::new(1.0, 2.0, 3.0);
-    let vector1 = Vec4::new(1.0, 2.0, 3.0);
+    let vector1 = Vec4::new(1.0, 2.0, 3.0, 0.0);
     let point2 = point1 + vector1;
 
     assert_eq!(point2.x, 2.0);
@@ -68,7 +68,7 @@ fn point_sub_test() {
 #[test]
 fn point_sub_vec_test() {
     let point1 = Point::new(4.0, 1.0, 5.0);
-    let vector1 = Vec4::new(1.0, 2.0, 3.0);
+    let vector1 = Vec4::new(1.0, 2.0, 3.0, 0.0);
     let point2 = point1 - vector1;
 
     assert_eq!(point2.x, 3.0);
