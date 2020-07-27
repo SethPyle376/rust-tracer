@@ -83,3 +83,124 @@ fn mat4_mul_identity_test() {
 
   assert!(matrix1 == matrix3);
 }
+
+#[test]
+fn mat4_transpose_test() {
+  let mut matrix1 = Mat4::new();
+  let mut matrix2 = Mat4::new();
+
+  matrix1.set_row(&(Vec4::new(0.0, 9.0, 3.0, 0.0)), 0);
+  matrix1.set_row(&(Vec4::new(9.0, 8.0, 0.0, 8.0)), 1);
+  matrix1.set_row(&(Vec4::new(1.0, 8.0, 5.0, 3.0)), 2);
+  matrix1.set_row(&(Vec4::new(0.0, 0.0, 5.0, 8.0)), 3);
+
+  matrix2.set_row(&(Vec4::new(0.0, 9.0, 1.0, 0.0)), 0);
+  matrix2.set_row(&(Vec4::new(9.0, 8.0, 8.0, 0.0)), 1);
+  matrix2.set_row(&(Vec4::new(3.0, 0.0, 5.0, 5.0)), 2);
+  matrix2.set_row(&(Vec4::new(0.0, 8.0, 3.0, 8.0)), 3);
+
+  matrix1.transpose();
+
+  assert!(matrix1 == matrix2);
+}
+
+#[test]
+fn mat4_submatrix_test() {
+  let mut matrix1 = Mat4::new();
+
+  matrix1.set_row(&(Vec4::new(0.0, 9.0, 3.0, 0.0)), 0);
+  matrix1.set_row(&(Vec4::new(9.0, 8.0, 0.0, 8.0)), 1);
+  matrix1.set_row(&(Vec4::new(1.0, 8.0, 5.0, 3.0)), 2);
+  matrix1.set_row(&(Vec4::new(0.0, 0.0, 5.0, 8.0)), 3);
+
+  let submatrix = matrix1.get_submatrix(1, 2);
+
+  assert_eq!(submatrix[0], 0.0);
+  assert_eq!(submatrix[1], 9.0);
+  assert_eq!(submatrix[2], 0.0);
+  assert_eq!(submatrix[3], 1.0);
+  assert_eq!(submatrix[4], 8.0);
+  assert_eq!(submatrix[5], 3.0);
+  assert_eq!(submatrix[6], 0.0);
+  assert_eq!(submatrix[7], 0.0);
+  assert_eq!(submatrix[8], 8.0);
+}
+
+#[test]
+fn mat4_subsubmatrix_test() {
+  let mut matrix1 = Mat4::new();
+
+  matrix1.set_row(&(Vec4::new(0.0, 9.0, 3.0, 0.0)), 0);
+  matrix1.set_row(&(Vec4::new(9.0, 8.0, 0.0, 8.0)), 1);
+  matrix1.set_row(&(Vec4::new(1.0, 8.0, 5.0, 3.0)), 2);
+  matrix1.set_row(&(Vec4::new(0.0, 0.0, 5.0, 8.0)), 3);
+  let submatrix = matrix1.get_submatrix(1, 2);
+  let subsubmatrix = Mat4::get_sub_sub_matrix(&submatrix, 0, 0);
+
+  assert_eq!(subsubmatrix[0], 8.0);
+  assert_eq!(subsubmatrix[1], 3.0);
+  assert_eq!(subsubmatrix[2], 0.0);
+  assert_eq!(subsubmatrix[3], 8.0);
+}
+
+#[test]
+fn mat4_minor_test() {
+  let mut matrix1 = Mat4::new();
+
+  matrix1.set_row(&(Vec4::new(0.0, 9.0, 3.0, 0.0)), 0);
+  matrix1.set_row(&(Vec4::new(9.0, 8.0, 0.0, 8.0)), 1);
+  matrix1.set_row(&(Vec4::new(1.0, 8.0, 5.0, 3.0)), 2);
+  matrix1.set_row(&(Vec4::new(0.0, 0.0, 5.0, 8.0)), 3);
+
+  let submatrix = matrix1.get_submatrix(1, 2);
+
+  let minor = Mat4::get_minor(&submatrix, 0, 0);
+
+  assert_eq!(minor, 64.0);
+}
+
+#[test]
+fn mat4_cofactor_test() {
+  let mut matrix1 = Mat4::new();
+
+  matrix1.set_row(&(Vec4::new(0.0, 9.0, 3.0, 0.0)), 0);
+  matrix1.set_row(&(Vec4::new(9.0, 8.0, 0.0, 8.0)), 1);
+  matrix1.set_row(&(Vec4::new(1.0, 8.0, 5.0, 3.0)), 2);
+  matrix1.set_row(&(Vec4::new(0.0, 0.0, 5.0, 8.0)), 3);
+
+  let submatrix = matrix1.get_submatrix(1, 2);
+
+  let cofactor = Mat4::get_cofactor(&submatrix, 1, 0);
+
+  assert_eq!(cofactor, -72.0);
+}
+
+#[test]
+fn mat4_sub_determinant_test() {
+  let mut matrix1 = Mat4::new();
+
+  matrix1.set_row(&(Vec4::new(0.0, 9.0, 3.0, 0.0)), 0);
+  matrix1.set_row(&(Vec4::new(9.0, 8.0, 0.0, 8.0)), 1);
+  matrix1.set_row(&(Vec4::new(1.0, 8.0, 5.0, 3.0)), 2);
+  matrix1.set_row(&(Vec4::new(0.0, 0.0, 5.0, 8.0)), 3);
+
+  let submatrix = matrix1.get_submatrix(1, 2);
+
+  let sub_determinant = Mat4::get_sub_determinant(&submatrix);
+
+  assert_eq!(sub_determinant, -72.0);
+}
+
+#[test]
+fn mat4_determinate_test() {
+  let mut matrix1 = Mat4::new();
+
+  matrix1.set_row(&(Vec4::new(-2.0, -8.0, 3.0, 5.0)), 0);
+  matrix1.set_row(&(Vec4::new(-3.0, 1.0, 7.0, 3.0)), 1);
+  matrix1.set_row(&(Vec4::new(1.0, 2.0, -9.0, 6.0)), 2);
+  matrix1.set_row(&(Vec4::new(-6.0, 7.0, 7.0, -9.0)), 3);
+
+  let determinant = matrix1.determinant();
+
+  assert_eq!(determinant, -4071.0);
+}
