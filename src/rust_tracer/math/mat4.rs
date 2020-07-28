@@ -29,6 +29,28 @@ impl Mat4 {
     self.values = temp_matrix.values;
   }
 
+  // TODO: HANDLE INVERTED MATRICES WITH DETERMINANT OF 0
+  pub fn inverse(matrix: &Mat4) -> Mat4 {
+    let determinant = matrix.determinant();
+
+    let mut inverted_matrix = Mat4::new();
+
+    for y in 0..4 {
+      for x in 0..4 {
+        let submatrix = matrix.get_submatrix(x, y);
+        let mut cofactor = Mat4::get_sub_determinant(&submatrix);
+
+        if (y + x) % 2 != 0 {
+          cofactor = -cofactor;
+        }
+
+        inverted_matrix.values[y][x] = cofactor / determinant;
+      }
+    }
+
+    return inverted_matrix;
+  }
+
   pub fn set_row(&mut self, other: &Vec4, row_index: usize) {
     self.values[row_index][0] = other.x;
     self.values[row_index][1] = other.y;

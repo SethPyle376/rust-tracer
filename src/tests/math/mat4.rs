@@ -204,3 +204,69 @@ fn mat4_determinate_test() {
 
   assert_eq!(determinant, -4071.0);
 }
+
+pub fn round_to_decimal(value: f32, places: f32) -> f32 {
+  let round_factor = 10.0f32.powf(places);
+  let return_value = (value * round_factor).round() / round_factor;
+  return return_value;
+}
+
+#[test]
+fn mat4_inverted_test() {
+  let mut matrix1 = Mat4::new();
+
+  matrix1.set_row(&(Vec4::new(-5.0, 2.0, 6.0, -8.0)), 0);
+  matrix1.set_row(&(Vec4::new(1.0, -5.0, 1.0, 8.0)), 1);
+  matrix1.set_row(&(Vec4::new(7.0, 7.0, -6.0, -7.0)), 2);
+  matrix1.set_row(&(Vec4::new(1.0, -3.0, 7.0, 4.0)), 3);
+
+  let matrix2 = Mat4::inverse(&matrix1);
+
+  assert_eq!(round_to_decimal(matrix2.values[0][0], 5.0), 0.21805);
+  assert_eq!(round_to_decimal(matrix2.values[0][1], 5.0), 0.45113);
+  assert_eq!(round_to_decimal(matrix2.values[0][2], 5.0), 0.24060);
+  assert_eq!(round_to_decimal(matrix2.values[0][3], 5.0), -0.04511);
+  assert_eq!(round_to_decimal(matrix2.values[1][0], 5.0), -0.80827);
+  assert_eq!(round_to_decimal(matrix2.values[1][1], 5.0), -1.45677);
+  assert_eq!(round_to_decimal(matrix2.values[1][2], 5.0), -0.44361);
+  assert_eq!(round_to_decimal(matrix2.values[1][3], 5.0), 0.52068);
+  assert_eq!(round_to_decimal(matrix2.values[2][0], 5.0), -0.07895);
+  assert_eq!(round_to_decimal(matrix2.values[2][1], 5.0), -0.22368);
+  assert_eq!(round_to_decimal(matrix2.values[2][2], 5.0), -0.05263);
+  assert_eq!(round_to_decimal(matrix2.values[2][3], 5.0), 0.19737);
+  assert_eq!(round_to_decimal(matrix2.values[3][0], 5.0), -0.52256);
+  assert_eq!(round_to_decimal(matrix2.values[3][1], 5.0), -0.81391);
+  assert_eq!(round_to_decimal(matrix2.values[3][2], 5.0), -0.30075);
+  assert_eq!(round_to_decimal(matrix2.values[3][3], 5.0), 0.30639);
+}
+
+#[test]
+fn mat4_product_inverted_test() {
+  let mut matrix1 = Mat4::new();
+
+  matrix1.set_row(&(Vec4::new(3.0, -9.0, 7.0, 3.0)), 0);
+  matrix1.set_row(&(Vec4::new(3.0, -8.0, 2.0, -9.0)), 1);
+  matrix1.set_row(&(Vec4::new(-4.0, 4.0, 4.0, 1.0)), 2);
+  matrix1.set_row(&(Vec4::new(-6.0, 5.0, -1.0, 1.0)), 3);
+
+  let mut matrix2 = Mat4::new();
+
+  matrix2.set_row(&(Vec4::new(8.0, 2.0, 2.0, 2.0)), 0);
+  matrix2.set_row(&(Vec4::new(3.0, -1.0, 7.0, 0.0)), 1);
+  matrix2.set_row(&(Vec4::new(7.0, 0.0, 5.0, 4.0)), 2);
+  matrix2.set_row(&(Vec4::new(6.0, -2.0, 0.0, 5.0)), 3);
+
+  let matrix3 = &matrix1 * &matrix2;
+
+  let matrix4 = Mat4::inverse(&matrix2);
+
+  let mut matrix5 = &matrix3 * &matrix4;
+
+  for y in 0..4 {
+    for x in 0..4 {
+      matrix5.values[x][y] = round_to_decimal(matrix5.values[x][y], 1.0);
+    }
+  }
+
+  assert_eq!(matrix1.values, matrix5.values);
+}
