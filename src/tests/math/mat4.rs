@@ -1,5 +1,6 @@
 use crate::rust_tracer::math::mat4::Mat4;
 use crate::rust_tracer::math::vector::Vec4;
+use crate::rust_tracer::utils::math::round_to_decimal;
 
 #[test]
 fn mat4_row_test() {
@@ -203,12 +204,6 @@ fn mat4_determinate_test() {
   let determinant = matrix1.determinant();
 
   assert_eq!(determinant, -4071.0);
-}
-
-pub fn round_to_decimal(value: f32, places: f32) -> f32 {
-  let round_factor = 10.0f32.powf(places);
-  let return_value = (value * round_factor).round() / round_factor;
-  return return_value;
 }
 
 #[test]
