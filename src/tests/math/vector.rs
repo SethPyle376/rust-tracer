@@ -1,5 +1,7 @@
 use crate::rust_tracer::math::vector::Vec4;
 use crate::rust_tracer::math::point::Point;
+use crate::rust_tracer::math::mat4::Mat4;
+use std::f32::consts::PI;
 
 #[test]
 fn new_vector_test() {
@@ -155,4 +157,69 @@ fn vector_cross_product_test() {
     assert_eq!(vector4.x, 1.0);
     assert_eq!(vector4.y, -2.0);
     assert_eq!(vector4.z, 1.0)
+}
+
+#[test]
+fn vector_scaling_test() {
+    let scaling_matrix = Mat4::scale(2.0, 3.0, 4.0);
+    let vector1 = Vec4::new(-4.0, 6.0, 8.0, 0.0);
+
+    let vector2 = &scaling_matrix * &vector1;
+
+    let vector3 = Point::new(-8.0, 18.0, 32.0);
+
+    assert_eq!(vector2.x, vector3.x);
+    assert_eq!(vector2.y, vector3.y);
+    assert_eq!(vector2.z, vector3.z);
+}
+
+#[test]
+fn vector_inverted_scaling_test() {
+    let scaling_matrix = Mat4::scale(2.0, 3.0, 4.0);
+    let scaling_matrix = Mat4::inverse(&scaling_matrix);
+    let vector1 = Vec4::new(-4.0, 6.0, 8.0, 0.0);
+
+    let vector2 = &scaling_matrix * &vector1;
+
+    let vector3 = Point::new(-2.0, 2.0, 2.0);
+
+    assert_eq!(vector2.x, vector3.x);
+    assert_eq!(vector2.y, vector3.y);
+    assert_eq!(vector2.z, vector3.z);
+}
+
+#[test]
+fn vector_x_rotation_test() {
+    let vector1 = Vec4::new(0.0, 1.0, 0.0, 0.0);
+    let rotation_matrix = Mat4::rotation_x(PI / 4.0);
+
+    let vector2 = &rotation_matrix * &vector1;
+
+    assert_eq!(vector2.x, 0.0);
+    assert_eq!(vector2.y, 2.0_f32.sqrt() / 2.0);
+    assert_eq!(vector2.z, 2.0_f32.sqrt() / 2.0);
+}
+
+#[test]
+fn vector_y_rotation_test() {
+    let vector1 = Vec4::new(0.0, 0.0, 1.0, 0.0);
+    let rotation_matrix = Mat4::rotation_y(PI / 4.0);
+
+    let vector2 = &rotation_matrix * &vector1;
+
+    assert_eq!(vector2.x, 2.0_f32.sqrt() / 2.0);
+    assert_eq!(vector2.y, 0.0);
+    assert_eq!(vector2.z, 2.0_f32.sqrt() / 2.0);
+}
+
+#[test]
+fn vector_z_rotation_test() {
+    let vector1 = Vec4::new(0.0, 1.0, 0.0, 0.0);
+    let rotation_matrix = Mat4::rotation_z(PI / 4.0);
+
+    let vector2 = &rotation_matrix * &vector1;
+
+    assert_eq!(vector2.x, -(2.0_f32.sqrt()) / 2.0);
+    assert_eq!(vector2.y, 2.0_f32.sqrt() / 2.0);
+    assert_eq!(vector2.z, 0.0);
 }

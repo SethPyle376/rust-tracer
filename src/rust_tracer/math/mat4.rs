@@ -1,6 +1,7 @@
 use std::cmp::{PartialEq};
 use std::ops::{Add,Sub,Mul};
 use crate::rust_tracer::math::vector::Vec4;
+use crate::rust_tracer::math::point::Point;
 
 pub struct Mat4 {
   pub values: Vec<Vec<f32>>
@@ -17,6 +18,57 @@ impl Mat4 {
       matrix.values[x][x] = 1.0;
     }
     return matrix;
+  }
+
+  pub fn translation(x: f32, y: f32, z: f32) -> Mat4 {
+    let mut translation_matrix = Mat4::identity();
+
+    translation_matrix.set_column(&(Vec4::new(x, y, z, 1.0)), 3);
+
+    return translation_matrix;
+  }
+
+  pub fn scale(x: f32, y: f32, z: f32) -> Mat4 {
+    let mut scaling_matrix = Mat4::identity();
+
+    scaling_matrix.set_value(0, 0, x);
+    scaling_matrix.set_value(1, 1, y);
+    scaling_matrix.set_value(2, 2, z);
+
+    return scaling_matrix;
+  }
+
+  pub fn rotation_x(rot: f32) -> Mat4 {
+    let mut rotating_matrix = Mat4::identity();
+
+    rotating_matrix.set_value(1, 1, rot.cos());
+    rotating_matrix.set_value(1, 2, -rot.sin());
+    rotating_matrix.set_value(2, 1, rot.sin());
+    rotating_matrix.set_value(2, 2, rot.cos());
+
+    return rotating_matrix;
+  }
+
+  pub fn rotation_y(rot: f32) -> Mat4 {
+    let mut rotating_matrix = Mat4::identity();
+
+    rotating_matrix.set_value(0, 0, rot.cos());
+    rotating_matrix.set_value(0, 2, rot.sin());
+    rotating_matrix.set_value(2, 0, -rot.sin());
+    rotating_matrix.set_value(2, 2, rot.cos());
+
+    return rotating_matrix;
+  }
+
+  pub fn rotation_z(rot: f32) -> Mat4 {
+    let mut rotating_matrix = Mat4::identity();
+
+    rotating_matrix.set_value(0, 0, rot.cos());
+    rotating_matrix.set_value(0, 1, -rot.sin());
+    rotating_matrix.set_value(1, 0, rot.sin());
+    rotating_matrix.set_value(1, 1, rot.cos());
+
+    return rotating_matrix;
   }
 
   pub fn transpose(&mut self) {
@@ -200,5 +252,31 @@ impl Mul<&Mat4> for &Mat4 {
       }
     }
     return matrix;
+  }
+}
+
+impl Mul<&Point> for &Mat4 {
+  type Output = Point;
+
+  fn mul(self, other: &Point) -> Point {
+    let mut values= vec!{};
+    for x in 0..4 {
+      let row = self.get_row(x);
+      values.push(row.x * other.x + row.y * other.y + row.z * other.z + row.w * other.w);
+    }
+    return Point::new(values[0], values[1], values[2]);
+  }
+}
+
+impl Mul<&Vec4> for &Mat4 {
+  type Output = Vec4;
+
+  fn mul(self, other: &Vec4) -> Vec4 {
+    let mut values= vec!{};
+    for x in 0..4 {
+      let row = self.get_row(x);
+      values.push(row.x * other.x + row.y * other.y + row.z * other.z + row.w * other.w);
+    }
+    return Vec4::new(values[0], values[1], values[2], values[3]);
   }
 }
