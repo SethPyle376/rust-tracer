@@ -60,11 +60,11 @@ fn point_add_vec_test() {
 fn point_sub_test() {
     let point1 = Point::new(3.0, 2.0, 3.0);
     let point2 = Point::new(1.0, 2.0, 2.0);
-    let point3 = point1 - point2;
+    let vector1 = &point1 - &point2;
 
-    assert_eq!(point3.x, 2.0);
-    assert_eq!(point3.y, 0.0);
-    assert_eq!(point3.z, 1.0);
+    assert_eq!(vector1.x, 2.0);
+    assert_eq!(vector1.y, 0.0);
+    assert_eq!(vector1.z, 1.0);
 }
 
 #[test]

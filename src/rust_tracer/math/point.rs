@@ -46,11 +46,11 @@ impl Add<Vec4> for &Point {
     }
 }
 
-impl Sub<Point> for Point {
-    type Output = Point;
+impl Sub<&Point> for &Point {
+    type Output = Vec4;
 
-    fn sub(self, other: Point) -> Point {
-        Point {x: self.x - other.x, y: self.y - other.y, z: self.z - other.z, w: 1.0}
+    fn sub(self, other: &Point) -> Vec4 {
+        Vec4 {x: self.x - other.x, y: self.y - other.y, z: self.z - other.z, w: 0.0}
     }
 }
 
