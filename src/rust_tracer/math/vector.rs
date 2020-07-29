@@ -94,6 +94,14 @@ impl Mul<f32> for Vec4 {
     }
 }
 
+impl Mul<f32> for &Vec4 {
+    type Output = Vec4;
+
+    fn mul(self, other: f32) -> Vec4 {
+        Vec4 {x: self.x * other, y: self.y * other, z: self.z * other, w: 0.0}
+    }
+}
+
 impl Div<f32> for Vec4 {
     type Output = Vec4;
 
