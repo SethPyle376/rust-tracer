@@ -4,6 +4,7 @@ use std::ops::{Add,Sub,Mul,Div,Neg};
 use crate::rust_tracer::math::EPSILON;
 use crate::rust_tracer::math::point::Point;
 
+#[derive(Debug)]
 pub struct Vec4 {
     pub x: f32,
     pub y: f32,
@@ -108,5 +109,11 @@ impl Div<f32> for Vec4 {
     fn div(self, other: f32) -> Vec4 {
         let reciprocal = 1.0 / other;
         Vec4 {x: self.x * reciprocal, y: self.y * reciprocal, z: self.z * reciprocal, w: 0.0}
+    }
+}
+
+impl PartialEq for Vec4 {
+    fn eq(&self, other: &Vec4) -> bool {
+        return self.x == other.x && self.y == other.y && self.z == other.z && self.w == other.w;
     }
 }
