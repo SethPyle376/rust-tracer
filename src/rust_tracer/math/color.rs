@@ -1,21 +1,20 @@
 use std::ops::{Add,Sub,Mul};
+use crate::rust_tracer::math::Vec4;
 
 #[derive(Clone)]
 pub struct Color {
-    pub r: f32,
-    pub g: f32,
-    pub b: f32
+    pub color: Vec4
 }
 
 impl Color {
-    pub fn new(r: f32, g: f32, b: f32) -> Color { Color{r, g, b} }
+    pub fn new(color: Vec4) -> Color { Color { color } }
 }
 
 impl Add<Color> for Color {
     type Output = Color;
 
     fn add(self, other: Color) -> Color {
-        Color {r: self.r + other.r, g: self.g + other.g, b: self.b + other.b}
+        Color { color: self.color + other.color }
     }
 }
 
@@ -23,14 +22,14 @@ impl Sub<Color> for Color {
     type Output = Color;
 
     fn sub(self, other: Color) -> Color {
-        Color {r: self.r - other.r, g: self.g - other.g, b: self.b - other.b}
+        Color { color: self.color + other.color }
     }
 }
 
-impl Mul<Color> for Color {
-    type Output = Color;
-
-    fn mul(self, other: Color) -> Color {
-        Color {r: self.r * other.r, g: self.g * other.g, b: self.b * other.b}
-    }
-}
+// impl Mul<Color> for Color {
+//     type Output = Color;
+//
+//     fn mul(self, other: Color) -> Color {
+//         Color { color: self.color * other.color }
+//     }
+// }
