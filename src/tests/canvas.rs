@@ -33,7 +33,7 @@ use crate::rust_tracer::math::{Vec4, Mat4};
 #[test]
 #[ignore]
 fn basic_ray_tracing_test() {
-    let canvas_dimension = 500;
+    let canvas_dimension = 1000;
     let wall_size = 7.0;
     let mut canvas = Canvas::new(canvas_dimension, canvas_dimension);
 
