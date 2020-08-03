@@ -27,13 +27,13 @@ impl Sphere {
 
     pub fn intersect(&self, ray: &Ray) -> Vec<Intersection> {
         let transformed_ray = Ray::transform(&ray, &self.inverse_transform);
-        let mut intersections = vec! {};
+        let mut intersections = Vec::with_capacity(2);
         let sphere_to_ray = &transformed_ray.origin - &Point::new(Vec4::new(0.0, 0.0, 0.0, 1.0));
         let a = transformed_ray.direction.dot(&(transformed_ray.direction));
         let b = 2.0 * transformed_ray.direction.dot(&sphere_to_ray);
         let c = sphere_to_ray.dot(&sphere_to_ray) - 1.0;
 
-        let discriminant = b.powi(2) - 4.0 * a * c;
+        let discriminant = b * b - 4.0 * a * c;
 
         if discriminant < 0.0 {
             intersections
