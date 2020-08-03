@@ -1,2 +1,2 @@
-mod math;
 mod canvas;
+mod math;

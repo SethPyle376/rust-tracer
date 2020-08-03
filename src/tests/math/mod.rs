@@ -1,6 +1,4 @@
-mod point;
-mod vector;
+// mod sphere;
 mod color;
-mod mat4;
-mod ray;
-mod sphere;
+mod point;
+// mod ray;

@@ -1,6 +1,5 @@
 use crate::rust_tracer::math::point::Point;
-use crate::rust_tracer::math::vector::Vec4;
-use crate::rust_tracer::math::mat4::Mat4;
+use crate::rust_tracer::math::{Vec4, Mat4};
 
 
 pub struct Ray {
@@ -19,7 +18,7 @@ impl Ray {
     }
 
     pub fn transform(ray: &Ray, matrix: &Mat4) -> Ray {
-        Ray {origin: matrix * &(ray.origin), direction: matrix * &(ray.direction)}
+        Ray {origin: Point { point: matrix * &(ray.origin.point) }, direction: matrix * &(ray.direction)}
     }
 }
 
