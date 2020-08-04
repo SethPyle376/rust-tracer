@@ -3,6 +3,8 @@ use crate::rust_tracer::math::point::Point;
 use crate::rust_tracer::math::ray::Ray;
 use crate::rust_tracer::intersection::Intersection;
 use crate::rust_tracer::math::{Vec4, Mat4};
+use nalgebra::Vector3;
+use std::f32::consts::PI;
 
 #[test]
 pub fn sphere_intersection_test() {
@@ -37,4 +39,17 @@ pub fn sphere_normal_at_test() {
     let normal_vector = sphere1.normal_at(&Point { point: Vec4::new(1.0, 0.0, 0.0, 1.0) });
 
     assert_eq!(normal_vector, Vec4::new(1.0, 0.0, 0.0, 0.0));
+}
+
+#[test]
+pub fn sphere_transformed_normal_at_test() {
+    let scaling_matrix = Mat4::new_nonuniform_scaling(&Vector3::new(1.0, 0.5, 1.0));
+    let rotation_matrix = Mat4::new_rotation(Vector3::new(0.0, 0.0, 1.0) * (PI / 5.0));
+    let transformation_matrix = scaling_matrix * rotation_matrix;
+
+    let sphere = Sphere::new(transformation_matrix, 0);
+
+    let normal = sphere.normal_at(&Point::new(Vec4::new(0.0, 2.0_f32.sqrt() / 2.0, -(2.0_f32.sqrt()) / 2.0, 1.0)));
+
+    assert_eq!(normal, Vec4::new(-0.000000020444226, 0.97014254, -0.24253564, 0.0));
 }

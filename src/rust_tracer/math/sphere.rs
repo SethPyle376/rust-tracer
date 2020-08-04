@@ -53,7 +53,10 @@ impl Sphere {
     }
 
     pub fn normal_at(&self, point: &Point) -> Vec4 {
-        let vector = &point.point - self.transform.column(3);
-        return vector.normalize();
+        let object_point = &self.inverse_transform * &point.point;
+        let object_normal = object_point - Vec4::new(0.0, 0.0, 0.0, 1.0);
+        let mut world_normal = &self.inverse_transform.transpose() * object_normal;
+        world_normal.w = 0.0;
+        return world_normal.normalize();
     }
 }
