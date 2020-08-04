@@ -141,8 +141,8 @@ fn point_x_rotation_test() {
 #[test]
 fn point_chained_transformation_test() {
     let point1 = Point::new(Vec4::new(1.0, 0.0, 1.0, 1.0));
-    let rotation_matrix = Mat4::from_euler_angles(PI / 2.0, 0.0, 0.0);
-    let scaling_matrix = Mat4::scale(&Mat4::identity(), 5.0);
+    let rotation_matrix = Mat4::new_rotation(Vector3::new(1.0, 0.0, 0.0) * (PI / 2.0));
+    let scaling_matrix = Mat4::new_scaling(5.0);
     let translation_matrix = Mat4::new_translation(&Vector3::new(10.0, 5.0, 7.0));
 
     let chained_matrix = translation_matrix * scaling_matrix;
@@ -150,8 +150,8 @@ fn point_chained_transformation_test() {
 
     let point2 = Point { point: &chained_matrix * &point1.point };
 
+    let rotated_vector = rotation_matrix * point1.point;
 
-    assert_eq!(point2.point.x, 15.0);
-    assert_eq!(point2.point.y, 0.0);
-    assert_eq!(point2.point.z, 7.0);
+
+    assert_eq!(point2.point, Vec4::new(15.0, 0.0, 7.0, 1.0));
 }

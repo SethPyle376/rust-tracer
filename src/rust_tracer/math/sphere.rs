@@ -50,6 +50,10 @@ impl Sphere {
             }
             intersections
         }
+    }
 
+    pub fn normal_at(&self, point: &Point) -> Vec4 {
+        let vector = &point.point - self.transform.column(3);
+        return vector.normalize();
     }
 }

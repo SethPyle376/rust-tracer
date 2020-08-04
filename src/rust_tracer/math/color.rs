@@ -22,14 +22,6 @@ impl Sub<Color> for Color {
     type Output = Color;
 
     fn sub(self, other: Color) -> Color {
-        Color { color: self.color + other.color }
+        Color { color: self.color - other.color }
     }
 }
-
-// impl Mul<Color> for Color {
-//     type Output = Color;
-//
-//     fn mul(self, other: Color) -> Color {
-//         Color { color: self.color * other.color }
-//     }
-// }
