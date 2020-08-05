@@ -25,11 +25,11 @@ impl Canvas {
         &(self.pixels[x][y])
     }
 
-    pub fn save(&self, filename: String) -> std::io::Result<()> {
+    pub fn save(&self, filename: String) -> std::io::Result<()>{
         let mut file = File::create(filename)?;
         file.write(b"P3\n")?;
         file.write(format!("{} {}\n", self.width, self.height).as_bytes())?;
-        file.write(b"255\n");
+        file.write(b"255\n")?;
 
         for i in self.pixels.iter().flatten() {
             let r = i.color.x / 1.0 * 255.0;
@@ -41,9 +41,8 @@ impl Canvas {
             let b = i.color.z / 1.0 * 255.0;
             let b = b as i64;
 
-            file.write(format!("{} {} {}\n", r, g, b).as_bytes());
+            file.write(format!("{} {} {}\n", r, g, b).as_bytes())?;
         }
-
         Ok(())
     }
 }

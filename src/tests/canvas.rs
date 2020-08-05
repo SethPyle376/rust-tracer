@@ -20,18 +20,19 @@ fn canvas_pixel_test() {
 
 #[test]
 #[ignore]
-fn canvas_save_test() {
+fn canvas_save_test() -> std::io::Result<()>{
     let mut canvas = Canvas::new(1280, 720);
     let color1 = Color::new(Vec4::new(1.0, 1.0, 1.0, 0.0));
 
     canvas.write_pixel(1279, 719, color1);
 
-    canvas.save("test.ppm".to_string());
+    canvas.save("test.ppm".to_string())?;
+    Ok(())
 }
 
 #[test]
 #[ignore]
-fn basic_ray_tracing_test() {
+fn basic_ray_tracing_test() -> std::io::Result<()>{
     let canvas_dimension = 1000;
     let wall_size = 7.0;
     let mut canvas = Canvas::new(canvas_dimension, canvas_dimension);
@@ -66,5 +67,7 @@ fn basic_ray_tracing_test() {
         }
     }
 
-    canvas.save("basic_sphere_test.ppm".to_string());
+    canvas.save("basic_sphere_test.ppm".to_string())?;
+
+    Ok(())
 }
