@@ -1,6 +1,7 @@
 use crate::rust_tracer::math::ray::Ray;
 use crate::rust_tracer::math::point::Point;
 use crate::rust_tracer::math::{Vec4, Mat4};
+use crate::rust_tracer::utils::math::reflection;
 use nalgebra::Vector3;
 
 #[test]
@@ -37,4 +38,14 @@ fn ray_transform_test() {
 
     assert_eq!(ray1.origin, Point::new(Vec4::new(4.0, 6.0, 8.0, 1.0)));
     assert_eq!(ray1.direction, Vec4::new(0.0, 1.0, 0.0, 0.0));
+}
+
+#[test]
+fn vector_reflection_test() {
+    let incoming_vector = Vec4::new(1.0, -1.0, 0.0, 0.0);
+    let surface_normal = Vec4::new(0.0, 1.0, 0.0, 0.0);
+
+    let reflection_vector = reflection(&incoming_vector, &surface_normal);
+
+    assert_eq!(reflection_vector, Vec4::new(1.0, 1.0, 0.0, 0.0));
 }
