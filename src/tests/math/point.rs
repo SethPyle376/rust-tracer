@@ -150,8 +150,5 @@ fn point_chained_transformation_test() {
 
     let point2 = Point { point: &chained_matrix * &point1.point };
 
-    let rotated_vector = rotation_matrix * point1.point;
-
-
     assert_eq!(point2.point, Vec4::new(15.0, 0.0, 7.0, 1.0));
 }

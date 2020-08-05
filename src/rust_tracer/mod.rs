@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 pub mod math;
 pub mod canvas;
 pub mod utils;

@@ -25,7 +25,6 @@ fn canvas_save_test() {
     let color1 = Color::new(Vec4::new(1.0, 1.0, 1.0, 0.0));
 
     canvas.write_pixel(1279, 719, color1);
-    let color2 = canvas.pixel_at(1279, 719);
 
     canvas.save("test.ppm".to_string());
 }
@@ -50,7 +49,7 @@ fn basic_ray_tracing_test() {
 
             let position = Point::new(Vec4::new(world_x, world_y, 10.0, 1.0));
 
-            let mut direction = &position - &Point::new(Vec4::new(0.0, 0.0, -5.0, 1.0));
+            let direction = &position - &Point::new(Vec4::new(0.0, 0.0, -5.0, 1.0));
             direction.normalize();
 
             let ray = Ray::new(Point::new(Vec4::new(0.0, 0.0, -5.0, 1.0)), direction);

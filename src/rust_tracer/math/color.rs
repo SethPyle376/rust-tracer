@@ -1,4 +1,4 @@
-use std::ops::{Add,Sub,Mul};
+use std::ops::{Add,Sub};
 use crate::rust_tracer::math::Vec4;
 
 #[derive(Clone)]

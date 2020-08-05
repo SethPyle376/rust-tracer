@@ -1,7 +1,7 @@
 use crate::rust_tracer::math::point::Point;
 use crate::rust_tracer::math::ray::Ray;
 use crate::rust_tracer::intersection::Intersection;
-use crate::rust_tracer::math::{EPSILON, Vec4, Mat4};
+use crate::rust_tracer::math::{Vec4, Mat4};
 
 
 pub struct Sphere {

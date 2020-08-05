@@ -29,7 +29,7 @@ fn ray_position_test() {
 fn ray_transform_test() {
     let origin = Point::new(Vec4::new(1.0, 2.0, 3.0, 1.0));
     let direction = Vec4::new(0.0, 1.0, 0.0, 0.0);
-    let mut ray1 = Ray::new(origin, direction);
+    let ray1 = Ray::new(origin, direction);
 
     let translation_matrix = Mat4::new_translation(&Vector3::new(3.0, 4.0, 5.0));
 

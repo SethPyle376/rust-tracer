@@ -1,9 +1,7 @@
-use std::clone::Clone;
 use std::fs::File;
-use std::string::ToString;
 use crate::rust_tracer::math::color::Color;
 use std::io::Write;
-use crate::rust_tracer::math::{Vec4};
+use crate::rust_tracer::math::Vec4;
 
 pub struct Canvas {
     pub width: usize,
