@@ -50,7 +50,7 @@ fn basic_ray_tracing_test() {
             let position = Point::new(Vec4::new(world_x, world_y, 10.0, 1.0));
 
             let direction = &position - &Point::new(Vec4::new(0.0, 0.0, -5.0, 1.0));
-            direction.normalize();
+            let direction = direction.normalize();
 
             let ray = Ray::new(Point::new(Vec4::new(0.0, 0.0, -5.0, 1.0)), direction);
 
