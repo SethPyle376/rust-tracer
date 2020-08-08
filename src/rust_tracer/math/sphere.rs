@@ -1,26 +1,27 @@
 use crate::rust_tracer::math::point::Point;
 use crate::rust_tracer::math::ray::Ray;
 use crate::rust_tracer::intersection::Intersection;
-use crate::rust_tracer::math::{Vec4, Mat4};
+use crate::rust_tracer::{materials::material::Material, math::{Vec4, Mat4}};
 
 
 pub struct Sphere {
     pub transform: Mat4,
     pub id: i32,
+    pub material: Material,
 
     inverse_transform: Mat4
 }
 
 impl Sphere {
-    pub fn new(transform: Mat4, id: i32) -> Sphere {
+    pub fn new(transform: Mat4, id: i32, material: Material) -> Sphere {
         let inverse_transform = transform.try_inverse();
 
         match inverse_transform {
             Some(x) => {
-                Sphere {transform, id, inverse_transform: x}
+                Sphere {transform, id, material, inverse_transform: x}
             },
             None => {
-                Sphere { transform, id, inverse_transform: Mat4::identity()}
+                Sphere { transform, id, material, inverse_transform: Mat4::identity()}
             }
         }
     }

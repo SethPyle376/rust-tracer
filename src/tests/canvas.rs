@@ -3,7 +3,7 @@ use crate::rust_tracer::math::color::Color;
 use crate::rust_tracer::math::sphere::Sphere;
 use crate::rust_tracer::math::point::Point;
 use crate::rust_tracer::math::ray::Ray;
-use crate::rust_tracer::math::{Vec4, Mat4};
+use crate::rust_tracer::{materials::material::Material, math::{Vec4, Mat4}};
 
 #[test]
 fn canvas_pixel_test() {
@@ -40,7 +40,7 @@ fn basic_ray_tracing_test() -> std::io::Result<()>{
     let pixel_size = wall_size / canvas_dimension as f32;
     let half = wall_size / 2.0;
 
-    let sphere = Sphere::new(Mat4::identity() * Mat4::new_scaling(0.5), 0);
+    let sphere = Sphere::new(Mat4::identity() * Mat4::new_scaling(0.5), 0, Material::default_material());
 
 
     for y in 0..(canvas_dimension - 1) {
