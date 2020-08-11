@@ -2,7 +2,7 @@ use std::ops::{Add, Sub, Mul, Div};
 
 use crate::rust_tracer::math::{EPSILON, Vec4};
 
-#[derive(Debug)]
+#[derive(Debug,Copy, Clone)]
 pub struct Point {
     pub point: Vec4
 }
